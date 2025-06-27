@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuralSumm AI - Advanced Text Summarization</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="cosmic-background">
+        <div class="stars-layer"></div>
+        <div class="nebula-layer"></div>
+        <div class="particle-field" id="particleField"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Floating Robot Companion -->
+    <div class="robot-companion" id="robotCompanion">
+        <div class="robot-body">
+            <div class="robot-head">
+                <div class="robot-eye left-eye"></div>
+                <div class="robot-eye right-eye"></div>
+                <div class="robot-antenna">
+                    <div class="antenna-tip"></div>
+                </div>
+            </div>
+            <div class="robot-chest">
+                <div class="chest-panel">
+                    <div class="status-light"></div>
+                    <div class="data-stream"></div>
+                </div>
+            </div>
+            <div class="robot-arms">
+                <div class="arm left-arm"></div>
+                <div class="arm right-arm"></div>
+            </div>
+        </div>
+        <div class="robot-speech-bubble" id="robotSpeech">
+            <div class="speech-content"></div>
+            <div class="speech-tail"></div>
+        </div>
+        <div class="robot-trail"></div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="neural-logo">
+                <div class="logo-core"></div>
+                <div class="logo-rings">
+                    <div class="ring ring-1"></div>
+                    <div class="ring ring-2"></div>
+                    <div class="ring ring-3"></div>
+                </div>
+            </div>
+            <h1 class="loading-title">NeuralSumm AI</h1>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p class="loading-text">Initializing Neural Networks...</p>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div class="app-container" id="appContainer">
+        <!-- Navigation Header -->
+        <header class="nav-header">
+            <div class="nav-content">
+                <div class="brand-section">
+                    <div class="brand-logo">
+                        <svg class="logo-icon" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#00f5ff"/>
+                                    <stop offset="50%" style="stop-color:#ff00ff"/>
+                                    <stop offset="100%" style="stop-color:#ffff00"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="url(#logoGradient)" stroke-width="3"/>
+                            <path d="M30 35 L50 25 L70 35 L70 55 L50 65 L30 55 Z" fill="url(#logoGradient)" opacity="0.3"/>
+                            <circle cx="50" cy="50" r="8" fill="url(#logoGradient)"/>
+                            <path d="M35 40 Q50 30 65 40" stroke="url(#logoGradient)" stroke-width="2" fill="none"/>
+                            <path d="M35 60 Q50 70 65 60" stroke="url(#logoGradient)" stroke-width="2" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="brand-text">
+                        <h1 class="brand-name">NeuralSumm</h1>
+                        <span class="brand-tagline">AI-Powered Intelligence</span>
+                    </div>
+                </div>
+                <div class="nav-controls">
+                    <button class="nav-btn" id="themeToggle" title="Toggle Theme">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M12 3V1M12 23V21M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22"/>
+                            <circle cx="12" cy="12" r="5"/>
+                        </svg>
+                    </button>
+                    <button class="nav-btn" id="settingsBtn" title="Settings">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15A1.65 1.65 0 0 0 21 13.09A1.65 1.65 0 0 0 19.4 9L18.9 8.5A1.65 1.65 0 0 1 18.9 5.5L19.4 5A1.65 1.65 0 0 0 21 3.09A1.65 1.65 0 0 0 19.4 1L18.9 0.5A1.65 1.65 0 0 1 15.9 0.5L15.4 1A1.65 1.65 0 0 0 13.09 3A1.65 1.65 0 0 0 15 4.6L15.5 5.1A1.65 1.65 0 0 1 15.5 8.1L15 8.6A1.65 1.65 0 0 0 13.09 21A1.65 1.65 0 0 0 15 19.4L15.5 18.9A1.65 1.65 0 0 1 18.5 18.9L19 19.4A1.65 1.65 0 0 0 21 13.09Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="hero-title">
+                            <span class="title-line">Transform</span>
+                            <span class="title-line highlight">Complex Text</span>
+                            <span class="title-line">Into Clarity</span>
+                        </h1>
+                        <p class="hero-subtitle">
+                            Harness the power of advanced neural networks to distill lengthy content 
+                            into precise, intelligent summaries in seconds.
+                        </p>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <span class="stat-number" data-target="10000">0</span>
+                                <span class="stat-label">Summaries Generated</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" data-target="95">0</span>
+                                <span class="stat-label">% Accuracy Rate</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" data-target="3">0</span>
+                                <span class="stat-label">Seconds Average</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="neural-network">
+                            <div class="network-nodes">
+                                <div class="node node-1"></div>
+                                <div class="node node-2"></div>
+                                <div class="node node-3"></div>
+                                <div class="node node-4"></div>
+                                <div class="node node-5"></div>
+                                <div class="node node-6"></div>
+                            </div>
+                            <div class="network-connections">
+                                <div class="connection conn-1"></div>
+                                <div class="connection conn-2"></div>
+                                <div class="connection conn-3"></div>
+                                <div class="connection conn-4"></div>
+                                <div class="connection conn-5"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Input Interface -->
+            <section class="input-interface" id="inputInterface">
+                <div class="interface-container">
+                    <div class="interface-header">
+                        <div class="header-content">
+                            <div class="section-icon">
+                                <svg class="icon" viewBox="0 0 24 24">
+                                    <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.7893 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"/>
+                                    <polyline points="14,2 14,8 20,8"/>
+                                    <line x1="16" y1="13" x2="8" y2="13"/>
+                                    <line x1="16" y1="17" x2="8" y2="17"/>
+                                    <polyline points="10,9 9,9 8,9"/>
+                                </svg>
+                            </div>
+                            <h2 class="section-title">Neural Input Terminal</h2>
+                            <div class="status-indicator" id="systemStatus">
+                                <div class="status-dot"></div>
+                                <span class="status-text">System Ready</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-panel">
+                        <div class="panel-frame">
+                            <div class="frame-corners">
+                                <div class="corner top-left"></div>
+                                <div class="corner top-right"></div>
+                                <div class="corner bottom-left"></div>
+                                <div class="corner bottom-right"></div>
+                            </div>
+                            
+                            <div class="input-area">
+                                <div class="textarea-wrapper">
+                                    <textarea 
+                                        id="inputText" 
+                                        class="neural-textarea"
+                                        placeholder="Paste your content here and watch the magic happen..."
+                                        rows="12"
+                                    ></textarea>
+                                    <div class="textarea-overlay">
+                                        <div class="scan-line"></div>
+                                        <div class="data-points">
+                                            <div class="data-point"></div>
+                                            <div class="data-point"></div>
+                                            <div class="data-point"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="input-metrics">
+                                    <div class="metric-group">
+                                        <div class="metric-item">
+                                            <svg class="metric-icon" viewBox="0 0 24 24">
+                                                <path d="M4 7V4C4 3.46957 4.21071 2.96086 4.58579 2.58579C4.96086 2.21071 5.46957 2 6 2H18C18.5304 2 19.0391 2.21071 19.4142 2.58579C19.7893 2.96086 20 3.46957 20 4V7"/>
+                                                <path d="M20 20V17C20 16.4696 19.7893 15.9609 19.4142 15.5858C19.0391 15.2107 18.5304 15 18 15H6C5.46957 15 4.96086 15.2107 4.58579 15.5858C4.21071 15.9609 4 16.4696 4 17V20"/>
+                                                <line x1="4" y1="7" x2="4" y2="15"/>
+                                                <line x1="20" y1="7" x2="20" y2="15"/>
+                                            </svg>
+                                            <div class="metric-data">
+                                                <span class="metric-value" id="wordCount">0</span>
+                                                <span class="metric-label">Words</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="metric-item">
+                                            <svg class="metric-icon" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="12" r="10"/>
+                                                <polyline points="12,6 12,12 16,14"/>
+                                            </svg>
+                                            <div class="metric-data">
+                                                <span class="metric-value" id="readTime">0m</span>
+                                                <span class="metric-label">Read Time</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="metric-item">
+                                            <svg class="metric-icon" viewBox="0 0 24 24">
+                                                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/>
+                                            </svg>
+                                            <div class="metric-data">
+                                                <span class="metric-value" id="complexity">Low</span>
+                                                <span class="metric-label">Complexity</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="processing-bar">
+                                        <div class="bar-track">
+                                            <div class="bar-fill" id="processingBar"></div>
+                                            <div class="bar-glow"></div>
+                                        </div>
+                                        <span class="bar-label">Neural Processing</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="control-panel">
+                            <div class="panel-left">
+                                <div class="quick-actions">
+                                    <button class="quick-btn" id="clearBtn" title="Clear Input">
+                                        <svg class="icon" viewBox="0 0 24 24">
+                                            <polyline points="3,6 5,6 21,6"/>
+                                            <path d="M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6"/>
+                                        </svg>
+                                    </button>
+                                    <button class="quick-btn" id="pasteBtn" title="Paste from Clipboard">
+                                        <svg class="icon" viewBox="0 0 24 24">
+                                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                                            <path d="M16 4H18C18.5304 4 19.0391 4.21071 19.4142 4.58579C19.7893 4.96086 20 5.46957 20 6V20C20 20.5304 19.7893 21.0391 19.4142 21.4142C19.0391 21.7893 18.5304 22 18 22H6C5.46957 22 4.96086 21.7893 4.58579 21.4142C4.21071 21.0391 4 20.5304 4 20V6C4 5.46957 4.21071 4.96086 4.58579 4.58579C4.96086 4.21071 5.46957 4 6 4H8"/>
+                                        </svg>
+                                    </button>
+                                    <button class="quick-btn" id="voiceBtn" title="Voice Input">
+                                        <svg class="icon" viewBox="0 0 24 24">
+                                            <path d="M12 1C10.8954 1 10 1.89543 10 3V12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12V3C14 1.89543 13.1046 1 12 1Z"/>
+                                            <path d="M19 10V12C19 16.4183 15.4183 20 11 20H13C17.4183 20 21 16.4183 21 12V10H19Z"/>
+                                            <path d="M5 10V12C5 16.4183 8.58172 20 13 20H11C6.58172 20 3 16.4183 3 12V10H5Z"/>
+                                            <line x1="12" y1="20" x2="12" y2="24"/>
+                                            <line x1="8" y1="24" x2="16" y2="24"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="panel-center">
+                                <button class="neural-button" id="summarizeBtn">
+                                    <div class="button-bg"></div>
+                                    <div class="button-content">
+                                        <svg class="button-icon" viewBox="0 0 24 24">
+                                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z"/>
+                                        </svg>
+                                        <span class="button-text">Analyze & Summarize</span>
+                                    </div>
+                                    <div class="button-loading">
+                                        <div class="loading-rings">
+                                            <div class="ring"></div>
+                                            <div class="ring"></div>
+                                            <div class="ring"></div>
+                                        </div>
+                                        <span class="loading-text">Processing...</span>
+                                    </div>
+                                    <div class="button-particles"></div>
+                                </button>
+                            </div>
+                            
+                            <div class="panel-right">
+                                <div class="ai-settings">
+                                    <button class="settings-btn" id="aiModeBtn" title="AI Mode Settings">
+                                        <svg class="icon" viewBox="0 0 24 24">
+                                            <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                                            <path d="M2 17L12 22L22 17"/>
+                                            <path d="M2 12L12 17L22 12"/>
+                                        </svg>
+                                        <span class="mode-text">Smart Mode</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Display -->
+            <section class="results-section" id="resultsSection">
+                <div class="results-container">
+                    <div class="results-header">
+                        <div class="header-content">
+                            <div class="section-icon">
+                                <svg class="icon" viewBox="0 0 24 24">
+                                    <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
+                                </svg>
+                            </div>
+                            <h2 class="section-title">Neural Analysis Complete</h2>
+                            <div class="analysis-time">
+                                <span class="time-value" id="analysisTime">0.0s</span>
+                                <span class="time-label">Processing Time</span>
+                            </div>
+                        </div>
+                        <div class="results-actions">
+                            <button class="action-btn" id="copyResultBtn" title="Copy Summary">
+                                <svg class="icon" viewBox="0 0 24 24">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                                    <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5"/>
+                                </svg>
+                            </button>
+                            <button class="action-btn" id="shareResultBtn" title="Share Summary">
+                                <svg class="icon" viewBox="0 0 24 24">
+                                    <circle cx="18" cy="5" r="3"/>
+                                    <circle cx="6" cy="12" r="3"/>
+                                    <circle cx="18" cy="19" r="3"/>
+                                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                                </svg>
+                            </button>
+                            <button class="action-btn" id="exportResultBtn" title="Export Summary">
+                                <svg class="icon" viewBox="0 0 24 24">
+                                    <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15"/>
+                                    <polyline points="7,10 12,15 17,10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="results-content">
+                        <div class="summary-display">
+                            <div class="display-frame">
+                                <div class="frame-glow"></div>
+                                <div class="summary-text" id="summaryOutput">
+                                    <!-- Summary content will be inserted here -->
+                                </div>
+                                <div class="text-effects">
+                                    <div class="typing-cursor"></div>
+                                    <div class="highlight-overlay"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-panel">
+                            <div class="analytics-grid">
+                                <div class="analytic-card primary">
+                                    <div class="card-header">
+                                        <svg class="card-icon" viewBox="0 0 24 24">
+                                            <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.7893 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"/>
+                                        </svg>
+                                        <span class="card-title">Original</span>
+                                    </div>
+                                    <div class="card-value" id="originalWordsResult">-</div>
+                                    <div class="card-label">Words</div>
+                                    <div class="card-progress">
+                                        <div class="progress-fill" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="analytic-card secondary">
+                                    <div class="card-header">
+                                        <svg class="card-icon" viewBox="0 0 24 24">
+                                            <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                                            <path d="M2 17L12 22L22 17"/>
+                                        </svg>
+                                        <span class="card-title">Summary</span>
+                                    </div>
+                                    <div class="card-value" id="summaryWordsResult">-</div>
+                                    <div class="card-label">Words</div>
+                                    <div class="card-progress">
+                                        <div class="progress-fill" id="summaryProgress"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="analytic-card accent">
+                                    <div class="card-header">
+                                        <svg class="card-icon" viewBox="0 0 24 24">
+                                            <path d="M3 3V21H21"/>
+                                            <path d="M7 16L12 11L16 15L21 10"/>
+                                        </svg>
+                                        <span class="card-title">Compression</span>
+                                    </div>
+                                    <div class="card-value" id="compressionResult">-</div>
+                                    <div class="card-label">Reduction</div>
+                                    <div class="card-progress">
+                                        <div class="progress-fill" id="compressionProgress"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="analytic-card success">
+                                    <div class="card-header">
+                                        <svg class="card-icon" viewBox="0 0 24 24">
+                                            <path d="M9 11L12 14L22 4"/>
+                                            <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C13.0929 3 14.1175 3.2072 15.0711 3.57889"/>
+                                        </svg>
+                                        <span class="card-title">Quality</span>
+                                    </div>
+                                    <div class="card-value" id="qualityResult">-</div>
+                                    <div class="card-label">Score</div>
+                                    <div class="card-progress">
+                                        <div class="progress-fill" id="qualityProgress"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- History Archive -->
+            <section class="history-section" id="historySection">
+                <div class="history-container">
+                    <div class="history-header">
+                        <div class="header-content">
+                            <div class="section-icon">
+                                <svg class="icon" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12,6 12,12 16,14"/>
+                                </svg>
+                            </div>
+                            <h2 class="section-title">Neural Memory Archive</h2>
+                            <div class="archive-stats">
+                                <span class="stat-value" id="archiveCount">0</span>
+                                <span class="stat-label">Stored Analyses</span>
+                            </div>
+                        </div>
+                        <div class="history-controls">
+                            <button class="control-btn" id="refreshHistoryBtn">
+                                <svg class="icon" viewBox="0 0 24 24">
+                                    <path d="M1 4V10H7"/>
+                                    <path d="M23 20V14H17"/>
+                                    <path d="M20.49 9C19.9828 7.56678 19.1209 6.28392 17.9845 5.27304C16.8482 4.26216 15.4745 3.55682 13.9917 3.21834C12.5089 2.87986 10.9652 2.91902 9.50481 3.33329C8.04437 3.74757 6.70779 4.52306 5.64 5.59L1 10"/>
+                                    <path d="M3.51 15C4.01719 16.4332 4.87906 17.7161 6.01547 18.727C7.15189 19.7378 8.52547 20.4432 10.0083 20.7817C11.4911 21.1201 13.0348 21.081 14.4952 20.6667C15.9556 20.2524 17.2922 19.4769 18.36 18.41L23 14"/>
+                                </svg>
+                                <span>Refresh</span>
+                            </button>
+                            <button class="control-btn danger" id="clearHistoryBtn">
+                                <svg class="icon" viewBox="0 0 24 24">
+                                    <polyline points="3,6 5,6 21,6"/>
+                                    <path d="M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6"/>
+                                </svg>
+                                <span>Purge Archive</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="history-content" id="historyContent">
+                        <div class="empty-archive">
+                            <div class="empty-visual">
+                                <div class="empty-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.7893 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"/>
+                                        <polyline points="14,2 14,8 20,8"/>
+                                    </svg>
+                                </div>
+                                <div class="data-streams">
+                                    <div class="stream"></div>
+                                    <div class="stream"></div>
+                                    <div class="stream"></div>
+                                </div>
+                            </div>
+                            <h3 class="empty-title">Neural Archive Empty</h3>
+                            <p class="empty-description">
+                                Your analysis history will be stored here. Start by processing some text above.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification System -->
+    <div class="notification-system" id="notificationSystem"></div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content" id="modalContent">
+            <!-- Modal content will be inserted here -->
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
